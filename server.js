@@ -17,7 +17,7 @@ app.use(express.json());
 
 //Step 1
 let transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: 'outlook',
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD
@@ -26,7 +26,7 @@ let transporter = nodemailer.createTransport({
 
 //step 2
 let mailOptions = {
-  from: 'nodemailertester456@gmail.com',
+  from: 'nathaniellind456@outlook.com',
   to: 'mctestertesty100@gmail.com',
   subject: 'Testing and Testing',
   text: 'IT works'
