@@ -1,15 +1,15 @@
 require('dotenv').config();
 
+const nodemailer = require("nodemailer");
+const app = express();
+
+
 import express from "express";
 import cors from "cors";
-// const exphbs = require("express-handlebars");
-const nodemailer = require("nodemailer");
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
+// const exphbs = require("express-handlebars");
+
 const port = process.env.PORT || 8090;
-const app = express();
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
@@ -25,27 +25,37 @@ let transporter = nodemailer.createTransport({
 })
 
 //step 2
-let mailOptions = {
-  from: 'nathaniellind456@outlook.com',
-  to: 'mctestertesty100@gmail.com',
-  subject: 'Testing and Testing',
-  text: 'IT works'
-}
+app.post("/send", function (req, res) { 
+  let mailOptions = {
+    from: 'nathaniellind456@outlook.com',
+    to: 'mctestertesty100@gmail.com',
+    subject: `Message from: ${req.body.mailerState.email}`,
+    text: `${req.body.mailerState.message}`,
+  };
 
-//step 3
-transporter.sendMail(mailOptions, function(err, data){
-  if (err) {
-    console.log('Error Occurs', err)
-  
-  } else {
-    console.log('Email sent!!')
-  }
+  //step 3
+  transporter.sendMail(mailOptions, function(err, data){
+    if (err) {
+      console.log('Error occurs', err)
+      res.json({
+        status: "fail",
+      });
+    } else {
+      console.log('Email sent!')
+      res.json({
+        status: "success",
+      });
+    }
+  });
 })
+
+
 
 // Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
+
 
 // Start the server
 app.listen(port, () => {
