@@ -27,8 +27,8 @@ let transporter = nodemailer.createTransport({
 //step 2
 app.post("/send", function (req, res) { 
   let mailOptions = {
-    from: 'nathaniellind456@outlook.com',
-    to: 'finalprojecttest2022@gmail.com',
+    from: process.env.EMAIL,
+    to: process.env.TOEMAIL,
     subject: `Bookningsförfrågan från: ${req.body.mailerState.email}`,
     text: `
             Namn: ${req.body.mailerState.name}
