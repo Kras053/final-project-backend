@@ -28,9 +28,16 @@ let transporter = nodemailer.createTransport({
 app.post("/send", function (req, res) { 
   let mailOptions = {
     from: 'nathaniellind456@outlook.com',
-    to: 'mctestertesty100@gmail.com',
-    subject: `Message from: ${req.body.mailerState.email}`,
-    text: `${req.body.mailerState.message}`,
+    to: 'finalprojecttest2022@gmail.com',
+    subject: `Bookningsförfrågan från: ${req.body.mailerState.email}`,
+    text: `
+            Namn: ${req.body.mailerState.name}
+            Email: ${req.body.mailerState.email}
+            Telnr: ${req.body.mailerState.phonenumber}
+            Meddelande: ${req.body.mailerState.message}
+            Datum: ${req.body.mailerState.startdate} till ${req.body.mailerState.enddate}
+            Hyrsaker: ${req.body.mailerState.rentalitems}
+          `,
   };
 
   //step 3
