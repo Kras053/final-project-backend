@@ -26,20 +26,21 @@ let transporter = nodemailer.createTransport({
 
 //step 2
 app.post("/send", function (req, res) { 
+  
   let mailOptions = {
     from: process.env.EMAIL,
     to: process.env.TOEMAIL,
-    subject: `Bookningsförfrågan från: ${req.body.mailerState.email}`,
+    subject: `Bookningsförfrågan från: ${req.body.data.email}`,
     text: `
-            Namn: ${req.body.mailerState.name}
-            Email: ${req.body.mailerState.email}
-            Telnr: ${req.body.mailerState.phonenumber}
-            Meddelande: ${req.body.mailerState.message}
-            Datum: ${req.body.mailerState.startdate} till ${req.body.mailerState.enddate}
-            Hyrsaker: ${req.body.mailerState.rentalitems}
-          `,
+            Namn: ${req.body.data.name}
+            Email: ${req.body.data.email}
+            Telnr: ${req.body.data.phonenumber}
+            Meddelande: ${req.body.data.message}
+            Datum: ${req.body.data.startdate} till ${req.body.data.enddate}
+            Hyrsaker: ${JSON.stringify(req.body.data.products)}
+          `
   };
-
+console.log(mailOptions)
   //step 3
   transporter.sendMail(mailOptions, function(err, data){
     if (err) {
