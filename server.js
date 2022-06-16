@@ -27,6 +27,15 @@ let transporter = nodemailer.createTransport({
 //step 2
 app.post("/send", function (req, res) { 
   
+  // const replacer = (key, value) => {
+  //   if (key === products.mainImage) {
+  //       console.log(key)
+  //     return undefined;
+  //   }
+  //   return value;
+  // }
+  //replacer
+
   let mailOptions = {
     from: process.env.EMAIL,
     to: process.env.TOEMAIL,
@@ -37,7 +46,7 @@ app.post("/send", function (req, res) {
             Telnr: ${req.body.data.phonenumber}
             Meddelande: ${req.body.data.message}
             Datum: ${req.body.data.startdate} till ${req.body.data.enddate}
-            Hyrsaker: ${JSON.stringify(req.body.data.products)}
+            Hyrsaker: ${JSON.stringify(req.body.data.products)} 
           `
   };
 console.log(mailOptions)
