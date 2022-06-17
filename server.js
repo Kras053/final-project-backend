@@ -6,7 +6,7 @@ const app = express();
 
 import express from "express";
 import cors from "cors";
-import { request } from "express";
+// import { request } from "express";
 
 // const exphbs = require("express-handlebars");
 
@@ -32,8 +32,8 @@ rentalitems.map(item => {
   console.log(item)
   things+=`
   <div>
-  <h2>name: ${item.title}</h2>
-  <h2>quantity: ${item.quantity}</h2>
+  <p>Namn: ${item.title}</p>
+  <p>Antal: ${item.quantity}</p>
   <img src=${item.image}/>
 </div>`
 })
@@ -41,15 +41,15 @@ rentalitems.map(item => {
   return (
     `
     <div>
-    <h1>Booking request</h1>
-    <h2>name: ${name}</h2>
-    <h2>email: ${email}</h2>
-    <h2>telnr: ${telnr}</h2>
-    <h2>message: ${message}</h2>
-    <h2>date: ${startdate}</h2>
-    <h2>date: ${enddate}</h2>
+    <h2>Bokningsförfrågan Nordic Spells Design</h2>
+    <p>Namn: ${name}</p>
+    <p>Email: ${email}</p>
+    <p>Tel: ${telnr}</p>
+    <p>Meddelande: ${message}</p>
+    <p>Startdatum: ${startdate}</p>
+    <p>Slutdatum: ${enddate}</p>
 
-    <h2>rentaltems: </h2>
+    <p>Hyrsaker: </p>
     ${things}
   </div>
     `
