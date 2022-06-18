@@ -8,7 +8,6 @@ import express from "express";
 import cors from "cors";
 // import { request } from "express";
 
-// const exphbs = require("express-handlebars");
 
 const port = process.env.PORT || 8090;
 
@@ -41,7 +40,7 @@ rentalitems.map(item => {
   return (
     `
     <div>
-    <h2>Bokningsförfrågan Nordic Spells Design</h2>
+    <h2>Bokningsförfrågan Nordic Spells Decor</h2>
     <p>Namn: ${name}</p>
     <p>Email: ${email}</p>
     <p>Tel: ${telnr}</p>
@@ -60,17 +59,6 @@ rentalitems.map(item => {
 //step 2
 app.post("/send", function (req, res) { 
   
-  // const replacer = (key, value) => {
-  //   if (key === products.mainImage) {
-  //       console.log(key)
-  //     return undefined;
-  //   }
-  //   return value;
-  // }
-  //replacer
-
-
-
   const modifiedProducts = []
   req.body.data.products.products.map(singleProduct => {
     console.log(singleProduct)
@@ -83,14 +71,7 @@ app.post("/send", function (req, res) {
     subject: `Bookningsförfrågan från: ${req.body.data.email}`,
     html: createHTMLResponse(req.body.data.name, req.body.data.email, req.body.data.phonenumber,
        req.body.data.message, req.body.data.startdate, req.body.data.enddate, modifiedProducts )
-    // text: `
-    //         Namn: ${req.body.data.name}
-    //         Email: ${req.body.data.email}
-    //         Telnr: ${req.body.data.phonenumber}
-    //         Meddelande: ${req.body.data.message}
-    //         Datum: ${req.body.data.startdate} till ${req.body.data.enddate}
-    //         Hyrsaker: ${JSON.stringify(modifiedProducts)} 
-    //       `
+    
   };
 console.log(mailOptions)
   //step 3
@@ -113,7 +94,7 @@ console.log(mailOptions)
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
+  res.send("Nordic Spells Decor");
 });
 
 
