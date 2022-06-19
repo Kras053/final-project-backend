@@ -15,7 +15,7 @@ const port = process.env.PORT || 8090;
 app.use(cors());
 app.use(express.json());
 
-//Step one
+//Step 1
 let transporter = nodemailer.createTransport({
   service: 'outlook',
   auth: {
