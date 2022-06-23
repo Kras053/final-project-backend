@@ -3,19 +3,14 @@ require('dotenv').config();
 const nodemailer = require("nodemailer");
 const app = express();
 
-
 import express from "express";
 import cors from "cors";
-// import { request } from "express";
-
 
 const port = process.env.PORT || 8090;
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
-//Step 1
 let transporter = nodemailer.createTransport({
   service: 'outlook',
   auth: {
@@ -39,24 +34,22 @@ rentalitems.map(item => {
 
   return (
     `
-    <div>
-    <h2>Bokningsförfrågan Nordic Spells Decor</h2>
-    <p>Namn: ${name}</p>
-    <p>Email: ${email}</p>
-    <p>Tel: ${telnr}</p>
-    <p>Meddelande: ${message}</p>
-    <p>Startdatum: ${startdate}</p>
-    <p>Slutdatum: ${enddate}</p>
+      <div>
+        <h2>Bokningsförfrågan Nordic Spells Decor</h2>
+        <p>Namn: ${name}</p>
+        <p>Email: ${email}</p>
+        <p>Tel: ${telnr}</p>
+        <p>Meddelande: ${message}</p>
+        <p>Startdatum: ${startdate}</p>
+        <p>Slutdatum: ${enddate}</p>
 
-    <p>Hyrsaker: </p>
-    ${things}
-  </div>
+        <p>Hyrsaker: </p>
+        ${things}
+    </div>
     `
   )
-
 }
 
-//step 2
 app.post("/send", function (req, res) { 
   
   const modifiedProducts = []
@@ -74,7 +67,6 @@ app.post("/send", function (req, res) {
     
   };
 console.log(mailOptions)
-  //step 3
   transporter.sendMail(mailOptions, function(err, data){
     if (err) {
       console.log('Error occurs', err)
@@ -90,15 +82,11 @@ console.log(mailOptions)
   });
 })
 
-
-
-// Start defining your routes here
 app.get("/", (req, res) => {
   res.send("Nordic Spells Decor");
 });
 
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
