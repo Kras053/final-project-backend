@@ -19,18 +19,20 @@ let transporter = nodemailer.createTransport({
   }
 })
 
+
+//Booking form
 const createHTMLResponse = (name, email, telnr, message, startdate, enddate, rentalitems) => {
 
-let things = ""
-rentalitems.map(item => {
-  console.log(item)
-  things+=`
-  <div>
-  <p>Namn: ${item.title}</p>
-  <p>Antal: ${item.quantity}</p>
-  <img src=${item.image}/>
-</div>`
-})
+  let things = ""
+  rentalitems.map(item => {
+    console.log(item)
+    things+=`
+    <div>
+      <p>Namn: ${item.title}</p>
+      <p>Antal: ${item.quantity}</p>
+      <img src=${item.image}/>
+    </div>`
+  })
 
   return (
     `
@@ -45,12 +47,12 @@ rentalitems.map(item => {
 
         <p>Hyrsaker: </p>
         ${things}
-    </div>
+      </div>
     `
   )
 }
 
-app.post("/send", function (req, res) { 
+app.post("/send2", function (req, res) { 
   
   const modifiedProducts = []
   req.body.data.products.products.map(singleProduct => {
@@ -66,7 +68,8 @@ app.post("/send", function (req, res) {
        req.body.data.message, req.body.data.startdate, req.body.data.enddate, modifiedProducts )
     
   };
-console.log(mailOptions)
+
+  console.log(mailOptions)
   transporter.sendMail(mailOptions, function(err, data){
     if (err) {
       console.log('Error occurs', err)
@@ -80,7 +83,43 @@ console.log(mailOptions)
       });
     }
   });
-})
+});
+
+
+//Contact form
+app.post("/send", function (req, res) { 
+
+    let mailOptionsContact = {
+      from: process.env.EMAIL,
+      to: process.env.TOEMAIL,
+      subject: `Meddelande från ${req.body.data.email}`,
+      text: `
+        Namn: ${req.body.data.name}
+
+        Telefonnummer: ${req.body.data.phonenumber}
+
+        Email: ${req.body.data.email}
+
+        Meddelande:
+        ${req.body.data.message} 
+      `
+    }
+
+    transporter.sendMail(mailOptionsContact, function(err, data){
+    if (err) {
+      console.log('Not working..');
+      res.json({
+          status: "fail",
+      });
+    } else {
+      console.log('contact form working!');
+      res.json({
+        status: "success",
+    });
+    }
+
+    })
+});
 
 app.get("/", (req, res) => {
   res.send("Nordic Spells Decor");
